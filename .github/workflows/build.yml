@@ -1,4 +1,4 @@
-name: APK yigʻish
+name: APK yigish
 
 on:
   push:
@@ -12,18 +12,21 @@ jobs:
       - name: Kodni yuklab olish
         uses: actions/checkout@v4
 
-      - name: Java 17 oʻrnatish
+      - name: Zipni ochish
+        run: unzip -o RasmKochir.zip
+
+      - name: Java 17 ornatish
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
 
-      - name: Gradle oʻrnatish
+      - name: Gradle ornatish
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.7"
 
-      - name: Debug APK yigʻish
+      - name: Debug APK yigish
         run: gradle assembleDebug --no-daemon
 
       - name: APK ni yuklash
