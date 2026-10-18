@@ -1,0 +1,33 @@
+name: APK yigʻish
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodni yuklab olish
+        uses: actions/checkout@v4
+
+      - name: Java 17 oʻrnatish
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Gradle oʻrnatish
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.7"
+
+      - name: Debug APK yigʻish
+        run: gradle assembleDebug --no-daemon
+
+      - name: APK ni yuklash
+        uses: actions/upload-artifact@v4
+        with:
+          name: RasmKochir-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
